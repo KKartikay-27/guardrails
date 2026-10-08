@@ -1,0 +1,5 @@
+# Local ggshield configuration. Keep evaluation data in scope for scanning.
+# This file does not resolve GitGuardian GitHub findings on previous commits.
+version: 2
+secret:
+  show_secrets: false

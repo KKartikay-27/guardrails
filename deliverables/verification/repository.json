@@ -1,0 +1,6 @@
+{
+  "html_url": "https://github.com/KKartikay-27/guardrails",
+  "private": false,
+  "description": "Policy-driven guardrails layer between users and an LLM: versioned policies, input/context/output checks, FastAPI service, OTel tracing and eval harness.",
+  "default_branch": "main"
+}

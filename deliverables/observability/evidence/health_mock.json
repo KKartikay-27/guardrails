@@ -1,0 +1,7 @@
+{
+  "ok": true,
+  "policy_version": "2026.10.0",
+  "upstream": "mock",
+  "llm_judge": false,
+  "tracing": false
+}

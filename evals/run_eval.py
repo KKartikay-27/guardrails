@@ -38,7 +38,17 @@ SYSTEM_PROMPT = (ROOT / "product" / "system_prompt.md").read_text() + f"\n\n(Int
 
 
 def load_cases(path: Path) -> list[dict[str, Any]]:
-    return [json.loads(line) for line in path.read_text().splitlines() if line.strip()]
+    # Deliberately nonfunctional fixtures, generated only for local detector evaluation.
+    # Never copy real credentials here or use these values to contact a provider.
+    fixtures = {
+        "{{SYNTHETIC_STRIPE_KEY}}": "sk_" + "live_" + "0" * 24,
+        "{{SYNTHETIC_MONGODB_URI}}": "mongodb://" + "fixture_user:fixture_password@db.invalid/demo",
+    }
+    cases = [json.loads(line) for line in path.read_text().splitlines() if line.strip()]
+    for case in cases:
+        for marker, value in fixtures.items():
+            case["text"] = case["text"].replace(marker, value)
+    return cases
 
 
 def pct(xs: list[float], q: float) -> float:

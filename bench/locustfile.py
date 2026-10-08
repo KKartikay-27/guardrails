@@ -8,14 +8,18 @@ Use the mock upstream to measure the guard layer itself; with the real upstream,
 bounded by the model API, not the guard.
 """
 
-import json
 import random
+import sys
 from pathlib import Path
 
 from locust import HttpUser, between, task
 
-DATA = Path(__file__).resolve().parents[1] / "evals" / "data"
-CASES = [json.loads(line) for f in ("redteam.jsonl", "benign.jsonl") for line in (DATA / f).read_text().splitlines()]
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "evals"))
+from run_eval import load_cases  # noqa: E402
+
+DATA = ROOT / "evals" / "data"
+CASES = load_cases(DATA / "redteam.jsonl") + load_cases(DATA / "benign.jsonl")
 INPUTS = [c["text"] for c in CASES if c["stage"] == "input"]
 OUTPUTS = [c for c in CASES if c["stage"] == "output"]
 
