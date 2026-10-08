@@ -1,0 +1,44 @@
+[project]
+name = "guardrail"
+version = "0.1.0"
+description = "Composable, policy-driven guardrails layer that wraps any LLM endpoint."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "anthropic>=1.0",
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.30",
+    "pydantic>=2.7",
+    "pyyaml>=6.0",
+    "jsonschema>=4.22",
+    "json-repair>=0.30",
+    "prometheus-client>=0.20",
+    "httpx>=0.27",
+]
+
+[project.optional-dependencies]
+# Heavier ML detectors (DeBERTa injection classifier, detoxify). Off by default so CI stays fast and free.
+ml = ["transformers>=4.44", "torch>=2.3", "detoxify>=0.5"]
+load = ["locust>=2.29"]
+
+[dependency-groups]
+dev = ["pytest>=8.2", "pytest-asyncio>=0.23", "ruff>=0.5"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/guardrail"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
+[tool.ruff]
+line-length = 110
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM"]
+ignore = ["E501", "E731"]

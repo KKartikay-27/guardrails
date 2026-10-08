@@ -1,0 +1,26 @@
+# Local observability stack: guardrail + Prometheus + Grafana (dashboard pre-provisioned).
+#   docker compose -f ops/docker-compose.yml up --build
+#   playground  http://localhost:7860    grafana  http://localhost:3300  (anonymous admin)
+services:
+  guardrail:
+    build: ..
+    ports: ["7860:7860"]
+    environment:
+      - ANTHROPIC_API_KEY
+      - LANGFUSE_PUBLIC_KEY
+      - LANGFUSE_SECRET_KEY
+      - LANGFUSE_HOST
+  prometheus:
+    image: prom/prometheus:v3.5.0
+    volumes: ["./prometheus.yml:/etc/prometheus/prometheus.yml:ro"]
+    ports: ["9091:9090"]
+  grafana:
+    image: grafana/grafana:12.1.0
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH=/var/lib/grafana/dashboards/guardrail-dashboard.json
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./grafana/guardrail-dashboard.json:/var/lib/grafana/dashboards/guardrail-dashboard.json:ro
+    ports: ["3300:3000"]

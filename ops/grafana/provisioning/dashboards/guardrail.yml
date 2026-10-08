@@ -1,0 +1,6 @@
+apiVersion: 1
+providers:
+  - name: guardrail
+    type: file
+    options:
+      path: /var/lib/grafana/dashboards

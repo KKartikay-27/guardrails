@@ -1,0 +1,113 @@
+# LLM-assisted profile of default.yaml: same checks, plus a Haiku judge on every input / context
+# document that the pattern layer did not already flag (score < 0.5). Catches paraphrased and
+# non-English attacks at the cost of one judge call per request. Compare with default.yaml via
+# `make eval-llm` and `make bench-e2e`.
+#
+# Guardrail policy. Every change to this file is a release: bump `version`, and CI re-runs the
+# red-team suite against it and blocks the PR on a catch-rate or false-positive regression.
+#
+# mode:     off | shadow | enforce   shadow = run + log "would have acted", never act
+# blocking: true  -> runs inline, adds latency, can change the decision
+#           false -> runs in the background after the response, logs only (zero added latency)
+# action:   allow | redact | repair | block  (defaults per check type)
+# on_error: allow (fail open) | block (fail closed)
+
+version: "2026.10.0-llm"
+product: support-assistant
+description: Guardrails for a SaaS customer-support assistant that answers from a help-centre knowledge base.
+
+defaults:
+  mode: enforce
+  blocking: true
+  timeout_ms: 1500
+  on_error: allow
+
+block_message: "I can't help with that here. I can answer questions about your account, billing, and using the product."
+
+input:
+  - id: injection
+    timeout_ms: 6000          # one Haiku judge call
+    check: prompt_injection
+    on_error: block
+    params:
+      threshold: 0.5
+      llm_gray_zone: [0.0, 0.5]   # judge everything the patterns did not already block
+
+  - id: jailbreak
+    timeout_ms: 6000          # one Haiku judge call
+    check: jailbreak
+    params:
+      threshold: 0.5
+      llm_gray_zone: [0.0, 0.5]
+
+  - id: secrets_input
+    check: secrets
+    action: redact            # strip pasted credentials before they reach the model provider
+
+  - id: pii_input
+    check: pii
+    action: redact
+    params:
+      entities: [EMAIL, PHONE, CREDIT_CARD, IBAN, US_SSN, IN_AADHAAR, IN_PAN]
+
+  - id: topic
+    check: topic
+    params:
+      deny:
+        medical_advice: ["(diagnose|diagnosis for) (me|my (rash|pain|symptoms|condition))", "symptoms? of (a |an )?(disease|infection|cancer|diabetes|covid|stroke|heart attack)", "dosage", "how (much|many) .{0,20}(mg|milligrams|pills|tablets)", "should i (take|stop taking) .{0,30}(medication|pills?|tablets|antibiotics|ibuprofen|paracetamol)", "prescri\\w+ me"]
+        legal_advice: ["(sue|lawsuit|litigat\\w+) (them|my|against)", "is it legal (for me )?to", "legal advice"]
+        investment_advice: ["(should i|which) (buy|sell|invest)\\w*.{0,30}(stocks?|shares|crypto|bitcoin|etf)", "investment advice", "price target"]
+        politics: ["who should i vote", "(democrat|republican|bjp|congress party|labour|tory) (is|are) (better|worse|right)", "election (fraud|rigged)"]
+        weapons: ["(make|build|assemble) (a |an )?(bomb|explosive|gun|firearm|pipe bomb)", "(synthesi[sz]e|make|cook) (meth|nerve agent|sarin|ricin)"]
+
+  - id: toxicity_input
+    check: toxicity
+    mode: shadow              # angry customers are customers: measure before enforcing
+    params:
+      threshold: 0.75
+
+context:
+  - id: indirect_injection
+    timeout_ms: 6000          # one Haiku judge call
+    check: prompt_injection
+    params:
+      threshold: 0.5
+      llm_gray_zone: [0.0, 0.5]
+
+output:
+  - id: schema
+    check: json_schema
+    timeout_ms: 8000          # may call the LLM to repair
+    params:
+      llm_repair: true
+
+  - id: prompt_leak
+    check: prompt_leak
+    params:
+      ngram: 8
+      threshold: 0.2
+
+  - id: secrets_output
+    check: secrets
+    action: block
+
+  - id: pii_output
+    check: pii
+    action: redact
+    params:
+      allow_values: ["support@northwind.example", "billing@northwind.example"]
+      ignore_echoed: true
+
+  - id: toxicity_output
+    check: toxicity
+    params:
+      threshold: 0.6
+
+  - id: grounding
+    check: grounding
+    timeout_ms: 8000          # hybrid mode calls the LLM judge on flagged answers
+    mode: shadow              # LLM-judged; run in shadow until its FPR on real traffic is known
+    params:
+      method: llm               # hybrid only judges lexically-flagged answers; llm judges every grounded answer
+      min_overlap: 0.5
+      max_unsupported_ratio: 0.0
