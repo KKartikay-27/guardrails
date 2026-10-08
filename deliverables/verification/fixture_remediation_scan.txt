@@ -1,0 +1,4 @@
+PASS: neither originally flagged literal occurs in tracked or nonignored working-tree files.
+PASS: original and remediation evaluation metrics and per-case actions match in both views.
+PASS: canonical and submission datasets match.
+LIMIT: this is a targeted local check, not a GitGuardian rescan. Earlier commits still contain the confirmed test values.

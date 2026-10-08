@@ -1,0 +1,711 @@
+[
+  {
+    "scenario": "support",
+    "response": {
+      "request_id": "c646374ebaa84cd4a1ceb1305754dff2",
+      "output": "You can cancel at any time from Settings > Billing > Cancel plan. Your workspace stays on the paid plan until the end of the current billing period, then moves to Free.",
+      "blocked": false,
+      "blocked_stage": null,
+      "decisions": {
+        "input": {
+          "stage": "input",
+          "action": "allow",
+          "allowed": true,
+          "policy_version": "2026.10.0",
+          "latency_ms": 27.23,
+          "blocked_by": [],
+          "shadow_hits": [],
+          "checks": [
+            {
+              "policy_id": "injection",
+              "check": "prompt_injection",
+              "triggered": false,
+              "action": "block",
+              "score": 0.0,
+              "reason": "",
+              "details": {
+                "signatures": []
+              },
+              "latency_ms": 0.030458000765065663,
+              "mode": "enforce",
+              "blocking": true,
+              "skipped": false,
+              "error": null
+            },
+            {
+              "policy_id": "jailbreak",
+              "check": "jailbreak",
+              "triggered": false,
+              "action": "block",
+              "score": 0.0,
+              "reason": "",
+              "details": {
+                "signatures": []
+              },
+              "latency_ms": 0.02500000027794158,
+              "mode": "enforce",
+              "blocking": true,
+              "skipped": false,
+              "error": null
+            },
+            {
+              "policy_id": "secrets_input",
+              "check": "secrets",
+              "triggered": false,
+              "action": "redact",
+              "score": 0.0,
+              "reason": "",
+              "details": {},
+              "latency_ms": 0.00970800010691164,
+              "mode": "enforce",
+              "blocking": true,
+              "skipped": false,
+              "error": null
+            },
+            {
+              "policy_id": "pii_input",
+              "check": "pii",
+              "triggered": false,
+              "action": "redact",
+              "score": 0.0,
+              "reason": "",
+              "details": {},
+              "latency_ms": 0.010082999324367847,
+              "mode": "enforce",
+              "blocking": true,
+              "skipped": false,
+              "error": null
+            },
+            {
+              "policy_id": "topic",
+              "check": "topic",
+              "triggered": false,
+              "action": "block",
+              "score": 0.0,
+              "reason": "",
+              "details": {
+                "denied": [],
+                "allowed": []
+              },
+              "latency_ms": 0.016042000424931757,
+              "mode": "enforce",
+              "blocking": true,
+              "skipped": false,
+              "error": null
+            },
+            {
+              "policy_id": "toxicity_input",
+              "check": "toxicity",
+              "triggered": false,
+              "action": "block",
+              "score": 0.0,
+              "reason": "",
+              "details": {
+                "categories": []
+              },
+              "latency_ms": 0.011666999853332527,
+              "mode": "shadow",
+              "blocking": true,
+              "skipped": false,
+              "error": null
+            }
+          ]
+        },
+        "context": [
+          {
+            "stage": "context",
+            "action": "allow",
+            "allowed": true,
+            "policy_version": "2026.10.0",
+            "latency_ms": 33.52,
+            "blocked_by": [],
+            "shadow_hits": [],
+            "checks": [
+              {
+                "policy_id": "indirect_injection",
+                "check": "prompt_injection",
+                "triggered": false,
+                "action": "block",
+                "score": 0.0,
+                "reason": "",
+                "details": {
+                  "signatures": []
+                },
+                "latency_ms": 0.4309169999032747,
+                "mode": "enforce",
+                "blocking": true,
+                "skipped": false,
+                "error": null
+              }
+            ]
+          },
+          {
+            "stage": "context",
+            "action": "allow",
+            "allowed": true,
+            "policy_version": "2026.10.0",
+            "latency_ms": 33.54,
+            "blocked_by": [],
+            "shadow_hits": [],
+            "checks": [
+              {
+                "policy_id": "indirect_injection",
+                "check": "prompt_injection",
+                "triggered": false,
+                "action": "block",
+                "score": 0.0,
+                "reason": "",
+                "details": {
+                  "signatures": []
+                },
+                "latency_ms": 0.5115840003782068,
+                "mode": "enforce",
+                "blocking": true,
+                "skipped": false,
+                "error": null
+              }
+            ]
+          }
+        ],
+        "output": {
+          "stage": "output",
+          "action": "allow",
+          "allowed": true,
+          "policy_version": "2026.10.0",
+          "latency_ms": 33.31,
+          "blocked_by": [],
+          "shadow_hits": [],
+          "checks": [
+            {
+              "policy_id": "schema",
+              "check": "json_schema",
+              "triggered": false,
+              "action": "allow",
+              "score": 0.0,
+              "reason": "no response_schema on request",
+              "details": {},
+              "latency_ms": 0.008374999197258148,
+              "mode": "enforce",
+              "blocking": true,
+              "skipped": true,
+              "error": null
+            },
+            {
+              "policy_id": "prompt_leak",
+              "check": "prompt_leak",
+              "triggered": false,
+              "action": "block",
+              "score": 0.0,
+              "reason": "",
+              "details": {
+                "ngram_overlap": 0.0
+              },
+              "latency_ms": 0.06104200019763084,
+              "mode": "enforce",
+              "blocking": true,
+              "skipped": false,
+              "error": null
+            },
+            {
+              "policy_id": "secrets_output",
+              "check": "secrets",
+              "triggered": false,
+              "action": "block",
+              "score": 0.0,
+              "reason": "",
+              "details": {},
+              "latency_ms": 0.04066699966642773,
+              "mode": "enforce",
+              "blocking": true,
+              "skipped": false,
+              "error": null
+            },
+            {
+              "policy_id": "pii_output",
+              "check": "pii",
+              "triggered": false,
+              "action": "redact",
+              "score": 0.0,
+              "reason": "",
+              "details": {},
+              "latency_ms": 0.043041999560955446,
+              "mode": "enforce",
+              "blocking": true,
+              "skipped": false,
+              "error": null
+            },
+            {
+              "policy_id": "toxicity_output",
+              "check": "toxicity",
+              "triggered": false,
+              "action": "block",
+              "score": 0.0,
+              "reason": "",
+              "details": {
+                "categories": []
+              },
+              "latency_ms": 0.03587500032153912,
+              "mode": "enforce",
+              "blocking": true,
+              "skipped": false,
+              "error": null
+            },
+            {
+              "policy_id": "grounding",
+              "check": "grounding",
+              "triggered": false,
+              "action": "block",
+              "score": 0.0,
+              "reason": "",
+              "details": {
+                "method": "hybrid",
+                "lexical_flags": []
+              },
+              "latency_ms": 0.21987499985698378,
+              "mode": "shadow",
+              "blocking": true,
+              "skipped": false,
+              "error": null
+            }
+          ]
+        }
+      },
+      "timings_ms": {
+        "input_guard": 27.23,
+        "context_guard": 33.54,
+        "upstream": 7.4,
+        "output_guard": 33.31,
+        "total": 126.11,
+        "guard_overhead": 94.08
+      },
+      "usage": {
+        "model": "mock",
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cached": false,
+        "cost_usd": 0.0
+      }
+    }
+  },
+  {
+    "scenario": "injection",
+    "response": {
+      "request_id": "8326294a806d495ebefcacb4c386eeda",
+      "output": "I can't help with that here. I can answer questions about your account, billing, and using the product.",
+      "blocked": true,
+      "blocked_stage": "input",
+      "decisions": {
+        "input": {
+          "stage": "input",
+          "action": "block",
+          "allowed": false,
+          "policy_version": "2026.10.0",
+          "latency_ms": 26.66,
+          "blocked_by": [
+            "injection"
+          ],
+          "shadow_hits": [],
+          "checks": [
+            {
+              "policy_id": "injection",
+              "check": "prompt_injection",
+              "triggered": true,
+              "action": "block",
+              "score": 0.95,
+              "reason": "matched override_instructions, reveal_prompt",
+              "details": {
+                "signatures": [
+                  "override_instructions",
+                  "reveal_prompt"
+                ]
+              },
+              "latency_ms": 0.06616700011363719,
+              "mode": "enforce",
+              "blocking": true,
+              "skipped": false,
+              "error": null
+            },
+            {
+              "policy_id": "jailbreak",
+              "check": "jailbreak",
+              "triggered": false,
+              "action": "block",
+              "score": 0.0,
+              "reason": "",
+              "details": {
+                "signatures": []
+              },
+              "latency_ms": 0.050874999942607246,
+              "mode": "enforce",
+              "blocking": true,
+              "skipped": false,
+              "error": null
+            },
+            {
+              "policy_id": "secrets_input",
+              "check": "secrets",
+              "triggered": false,
+              "action": "redact",
+              "score": 0.0,
+              "reason": "",
+              "details": {},
+              "latency_ms": 0.01570799940964207,
+              "mode": "enforce",
+              "blocking": true,
+              "skipped": false,
+              "error": null
+            },
+            {
+              "policy_id": "pii_input",
+              "check": "pii",
+              "triggered": false,
+              "action": "redact",
+              "score": 0.0,
+              "reason": "",
+              "details": {},
+              "latency_ms": 0.01500000053056283,
+              "mode": "enforce",
+              "blocking": true,
+              "skipped": false,
+              "error": null
+            },
+            {
+              "policy_id": "topic",
+              "check": "topic",
+              "triggered": false,
+              "action": "block",
+              "score": 0.0,
+              "reason": "",
+              "details": {
+                "denied": [],
+                "allowed": []
+              },
+              "latency_ms": 0.02766699981293641,
+              "mode": "enforce",
+              "blocking": true,
+              "skipped": false,
+              "error": null
+            },
+            {
+              "policy_id": "toxicity_input",
+              "check": "toxicity",
+              "triggered": false,
+              "action": "block",
+              "score": 0.0,
+              "reason": "",
+              "details": {
+                "categories": []
+              },
+              "latency_ms": 0.01650000012887176,
+              "mode": "shadow",
+              "blocking": true,
+              "skipped": false,
+              "error": null
+            }
+          ]
+        }
+      },
+      "timings_ms": {
+        "input_guard": 26.658958000552957,
+        "total": 26.777625000249827
+      },
+      "usage": {}
+    }
+  },
+  {
+    "scenario": "pii",
+    "response": {
+      "request_id": "39b110f279554352b3047a93dd2e2a75",
+      "output": "You can cancel at any time from Settings > Billing > Cancel plan. Your workspace stays on the paid plan until the end of the current billing period, then moves to Free.",
+      "blocked": false,
+      "blocked_stage": null,
+      "decisions": {
+        "input": {
+          "stage": "input",
+          "action": "redact",
+          "allowed": true,
+          "policy_version": "2026.10.0",
+          "latency_ms": 25.11,
+          "blocked_by": [],
+          "shadow_hits": [],
+          "checks": [
+            {
+              "policy_id": "injection",
+              "check": "prompt_injection",
+              "triggered": false,
+              "action": "block",
+              "score": 0.0,
+              "reason": "",
+              "details": {
+                "signatures": []
+              },
+              "latency_ms": 0.06099999973230297,
+              "mode": "enforce",
+              "blocking": true,
+              "skipped": false,
+              "error": null
+            },
+            {
+              "policy_id": "jailbreak",
+              "check": "jailbreak",
+              "triggered": false,
+              "action": "block",
+              "score": 0.0,
+              "reason": "",
+              "details": {
+                "signatures": []
+              },
+              "latency_ms": 0.046749999455641955,
+              "mode": "enforce",
+              "blocking": true,
+              "skipped": false,
+              "error": null
+            },
+            {
+              "policy_id": "secrets_input",
+              "check": "secrets",
+              "triggered": false,
+              "action": "redact",
+              "score": 0.0,
+              "reason": "",
+              "details": {},
+              "latency_ms": 0.014959000509406906,
+              "mode": "enforce",
+              "blocking": true,
+              "skipped": false,
+              "error": null
+            },
+            {
+              "policy_id": "pii_input",
+              "check": "pii",
+              "triggered": true,
+              "action": "redact",
+              "score": 1.0,
+              "reason": "found EMAIL",
+              "details": {
+                "entities": [
+                  {
+                    "type": "EMAIL",
+                    "start": 12,
+                    "end": 28
+                  }
+                ]
+              },
+              "latency_ms": 0.02433400004520081,
+              "mode": "enforce",
+              "blocking": true,
+              "skipped": false,
+              "error": null
+            },
+            {
+              "policy_id": "topic",
+              "check": "topic",
+              "triggered": false,
+              "action": "block",
+              "score": 0.0,
+              "reason": "",
+              "details": {
+                "denied": [],
+                "allowed": []
+              },
+              "latency_ms": 0.02604100063763326,
+              "mode": "enforce",
+              "blocking": true,
+              "skipped": false,
+              "error": null
+            },
+            {
+              "policy_id": "toxicity_input",
+              "check": "toxicity",
+              "triggered": false,
+              "action": "block",
+              "score": 0.0,
+              "reason": "",
+              "details": {
+                "categories": []
+              },
+              "latency_ms": 0.0162090000230819,
+              "mode": "shadow",
+              "blocking": true,
+              "skipped": false,
+              "error": null
+            }
+          ]
+        },
+        "context": [
+          {
+            "stage": "context",
+            "action": "allow",
+            "allowed": true,
+            "policy_version": "2026.10.0",
+            "latency_ms": 33.51,
+            "blocked_by": [],
+            "shadow_hits": [],
+            "checks": [
+              {
+                "policy_id": "indirect_injection",
+                "check": "prompt_injection",
+                "triggered": false,
+                "action": "block",
+                "score": 0.0,
+                "reason": "",
+                "details": {
+                  "signatures": []
+                },
+                "latency_ms": 0.4346250007074559,
+                "mode": "enforce",
+                "blocking": true,
+                "skipped": false,
+                "error": null
+              }
+            ]
+          },
+          {
+            "stage": "context",
+            "action": "allow",
+            "allowed": true,
+            "policy_version": "2026.10.0",
+            "latency_ms": 33.53,
+            "blocked_by": [],
+            "shadow_hits": [],
+            "checks": [
+              {
+                "policy_id": "indirect_injection",
+                "check": "prompt_injection",
+                "triggered": false,
+                "action": "block",
+                "score": 0.0,
+                "reason": "",
+                "details": {
+                  "signatures": []
+                },
+                "latency_ms": 0.5107080005473108,
+                "mode": "enforce",
+                "blocking": true,
+                "skipped": false,
+                "error": null
+              }
+            ]
+          }
+        ],
+        "output": {
+          "stage": "output",
+          "action": "allow",
+          "allowed": true,
+          "policy_version": "2026.10.0",
+          "latency_ms": 31.64,
+          "blocked_by": [],
+          "shadow_hits": [],
+          "checks": [
+            {
+              "policy_id": "schema",
+              "check": "json_schema",
+              "triggered": false,
+              "action": "allow",
+              "score": 0.0,
+              "reason": "no response_schema on request",
+              "details": {},
+              "latency_ms": 0.004707999323727563,
+              "mode": "enforce",
+              "blocking": true,
+              "skipped": true,
+              "error": null
+            },
+            {
+              "policy_id": "prompt_leak",
+              "check": "prompt_leak",
+              "triggered": false,
+              "action": "block",
+              "score": 0.0,
+              "reason": "",
+              "details": {
+                "ngram_overlap": 0.0
+              },
+              "latency_ms": 0.05820800015499117,
+              "mode": "enforce",
+              "blocking": true,
+              "skipped": false,
+              "error": null
+            },
+            {
+              "policy_id": "secrets_output",
+              "check": "secrets",
+              "triggered": false,
+              "action": "block",
+              "score": 0.0,
+              "reason": "",
+              "details": {},
+              "latency_ms": 0.0334169999405276,
+              "mode": "enforce",
+              "blocking": true,
+              "skipped": false,
+              "error": null
+            },
+            {
+              "policy_id": "pii_output",
+              "check": "pii",
+              "triggered": false,
+              "action": "redact",
+              "score": 0.0,
+              "reason": "",
+              "details": {},
+              "latency_ms": 0.04270799945516046,
+              "mode": "enforce",
+              "blocking": true,
+              "skipped": false,
+              "error": null
+            },
+            {
+              "policy_id": "toxicity_output",
+              "check": "toxicity",
+              "triggered": false,
+              "action": "block",
+              "score": 0.0,
+              "reason": "",
+              "details": {
+                "categories": []
+              },
+              "latency_ms": 0.03291700068075443,
+              "mode": "enforce",
+              "blocking": true,
+              "skipped": false,
+              "error": null
+            },
+            {
+              "policy_id": "grounding",
+              "check": "grounding",
+              "triggered": false,
+              "action": "block",
+              "score": 0.0,
+              "reason": "",
+              "details": {
+                "method": "hybrid",
+                "lexical_flags": []
+              },
+              "latency_ms": 0.18520799949328648,
+              "mode": "shadow",
+              "blocking": true,
+              "skipped": false,
+              "error": null
+            }
+          ]
+        }
+      },
+      "timings_ms": {
+        "input_guard": 25.11,
+        "context_guard": 33.53,
+        "upstream": 7.01,
+        "output_guard": 31.64,
+        "total": 123.16,
+        "guard_overhead": 90.28
+      },
+      "usage": {
+        "model": "mock",
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cached": false,
+        "cost_usd": 0.0
+      }
+    }
+  }
+]

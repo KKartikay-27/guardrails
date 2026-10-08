@@ -8,3 +8,5 @@ logs/
 .env
 reports/*.local.*
 .playwright-mcp/
+
+.deliverables-build/
