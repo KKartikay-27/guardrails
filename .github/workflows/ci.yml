@@ -36,8 +36,16 @@ jobs:
           set +e
           uv run python evals/compare.py reports/eval.json evals/baseline.json --md reports/pr_comment.md
           echo "exit=$?" >> "$GITHUB_OUTPUT"
+      - name: Publish evaluation summary
+        run: cat reports/pr_comment.md >> "$GITHUB_STEP_SUMMARY"
+      # Fork PRs and Dependabot receive read-only tokens. Their report remains
+      # available in the job summary and uploaded artifact.
       - name: Post results on the PR
-        if: github.event_name == 'pull_request'
+        if: >-
+          github.event_name == 'pull_request' &&
+          github.event.pull_request.head.repo.full_name == github.repository &&
+          github.actor != 'dependabot[bot]'
+        continue-on-error: true
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           header: guardrail-eval
@@ -49,12 +57,17 @@ jobs:
       - name: Fail on regression
         if: steps.gate.outputs.exit != '0'
         run: |
-          echo "::error::Guardrail eval regressed against evals/baseline.json (see PR comment)"
+          echo "::error::Guardrail eval regressed against evals/baseline.json (see job summary or eval-report artifact)"
           exit 1
 
   llm-eval:
     # Opt-in: add the `llm-eval` label to a PR. Runs the Haiku-judged checks with a warm response cache.
-    if: github.event_name == 'pull_request' && contains(github.event.pull_request.labels.*.name, 'llm-eval')
+    # Repository secrets are unavailable to fork PRs and Dependabot.
+    if: >-
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.actor != 'dependabot[bot]' &&
+      contains(github.event.pull_request.labels.*.name, 'llm-eval')
     runs-on: ubuntu-latest
     env:
       ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
@@ -73,6 +86,7 @@ jobs:
         if: hashFiles('evals/baseline_llm.json') != ''
       - uses: marocchino/sticky-pull-request-comment@v2
         if: hashFiles('reports/pr_comment_llm.md') != ''
+        continue-on-error: true
         with:
           header: guardrail-eval-llm
           path: reports/pr_comment_llm.md

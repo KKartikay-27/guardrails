@@ -191,7 +191,7 @@ on the injection check and `model: detoxify` on the toxicity checks.
 
 ## Submission deliverables
 
-The [deliverables package](deliverables/README.md) contains the evaluation set and scoring guide, observability evidence and runbook, a 15-minute presentation with speaker notes, a rubric audit, resume text and a blank peer-review worksheet. See the [submission checklist](deliverables/submission/checklist.md) for remaining actions.
+The [deliverables package](deliverables/README.md) contains the evaluation set and scoring guide, observability evidence and runbook, a 15-minute presentation, and resume text. The PowerPoint includes embedded speaker notes.
 
 **Business objective:** reduce unsafe responses and sensitive-data exposure in a SaaS support assistant while keeping legitimate support requests usable. The model consumes a user question and help-centre context and returns a support answer. The guard predicts a stage-level intervention (`allow`, `redact`, `repair`, `block`) using safety checks, with expected actions labelled in the evaluation set.
 
@@ -203,6 +203,6 @@ The [deliverables package](deliverables/README.md) contains the evaluation set a
 
 **Observability limits:** the response/trace upstream cost excludes judge calls, which are tracked separately; an output-blocked API response currently omits usage. Proposed alert thresholds, online review workflow and a manual rollback procedure are documented in the [observability runbook](deliverables/observability/README.md). Policies load at startup, so rollback requires restart or redeployment. Real user-feedback results, hosted trace ingestion and automated drift alerts are not demonstrated.
 
-**Team and submission:** [team details](deliverables/submission/team.md) include all seven supplied names and emails, with a proposed speaking allocation. The package includes a rubric mapping but does not assert a grade. Complete the official peer reviews personally during presentations; the supplied instructions prohibit AI-written peer-review answers.
+**Team and submission:** The presentation includes all seven supplied names and emails. Complete the official peer reviews personally during presentations; the supplied instructions prohibit AI-written peer-review answers.
 
 Fresh local mock load verification on 8 October 2026 reached **263.8 requests/s**, **0 HTTP errors**, p50 **124.56 ms** and p99 **1002.67 ms** with 50 clients over 20.2 seconds. This does not meet the proposed 400 requests/s target. It is a separate local run from the recorded 436.5 requests/s benchmark, not a replacement claim for real-model throughput.

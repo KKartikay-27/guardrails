@@ -1,9 +1,0 @@
-PASS: redteam: 68 valid uniquely identified cases; exact canonical copy
-PASS: benign: 61 valid uniquely identified cases; exact canonical copy
-PASS: Grafana dashboard parses and matches canonical JSON
-PASS: All Markdown local links resolve
-PASS: PowerPoint contains 13 slides and 13 speaker-note pages
-PASS: All seven team names and emails match the supplied order and case
-PASS: Speaker timing totals 15:00 plus separate 5:00 Q&A
-PASS: All 13 slides rendered and visually inspected; no PowerPoint application test claimed
-NOTE: Final commit/push, rehearsal and any optional public deployment remain user submission steps.
